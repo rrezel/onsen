@@ -38,7 +38,7 @@ Kick off your pipeline, which has the same name as your application, either usin
 **Step 4 (Optional)**
 You can get teh Webhook URL and set it in your source code manager to trigger builds when new code is pushed to the git repo.
 
-##Setting up testing and validation
+## Setting up testing and validation
 Howevermuch we want it to, onsen can't write tests for you. There are place holders for integration tests and validation tests in your pipeline, as indicated below:
 
 ```

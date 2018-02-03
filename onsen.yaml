@@ -18,6 +18,11 @@ parameters:
   displayName: Source Ref
   required: true
   value: master
+- name: POM_PATH
+  description: The path to the pom.xml to be built
+  displayName: Path to pom.xml
+  required: false
+  value: .
 - description: Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.
   displayName: GitHub Webhook Secret
   from: '[a-zA-Z0-9]{40}'
@@ -57,7 +62,7 @@ objects:
              timeout(time: 20, unit: 'MINUTES') {
                 def appName="${APP_NAME}"
                 def project=""
-
+                def pom_path="${POM_PATH}"
                 node {
                   stage("Initialize") {
                     project = env.PROJECT_NAME
@@ -66,14 +71,14 @@ objects:
 
                 node("maven") {
                   stage("Checkout") {
-                    git url: "https://github.com/spring-guides/gs-rest-service.git", branch: "master"
+                    git url: "https://github.com/rrezel/gs-rest-service.git", branch: "master"
                   }
                   stage("Build JAR") {
-                    sh "cd complete && mvn clean package && cp target/*.jar target/app.jar && ls target"
+                    sh "cd ${pom_path} && mvn clean package && cp target/*.jar target/app.jar && ls target"
                   }
 
                   stage("Build Image") {
-                    sh "cd complete && oc start-build ${appName}-docker --from-file=target/app.jar -n ${project}"
+                    sh "cd ${pom_path} && oc start-build ${appName}-docker --from-file=target/app.jar -n ${project}"
                     openshiftVerifyBuild bldCfg: "${appName}-docker", namespace: project, waitTime: '20', waitUnit: 'min'
                   }
 

@@ -34,6 +34,7 @@ Create a new application using onsen. Once again, this can be done via the GUI o
 **Step 3**
 Kick off your pipeline, which has the same name as your application, either using the GUI or with the CLI command
 `oc build <Application Name>`
+
 **Step 4 (Optional)**
 You can get teh Webhook URL and set it in your source code manager to trigger builds when new code is pushed to the git repo.
 

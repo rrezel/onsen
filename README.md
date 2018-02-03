@@ -1,10 +1,24 @@
 # onsen
 Onsen (Japanese for hot spring) is an end-to-end CI/CD pipeline for Spring Boot applications on OpenShift.
 
-## Default Pipeline
+## CICD Pipeline
 Onsen default pipeline
 
+![Image of Pipeline](https://raw.githubusercontent.com/rrezel/onsen/master/screenshot.png)
+
 Checkout code &rarr; Build Jar &rarr; Build Image &rarr; Deploy to Test &rarr; Run Integration tests &rarr; Deploy to Prod &rarr; Run Validation tests
+
+## Before you start
+
+Onsen uses /health endpoint provided by Spring Boot Actuator for both liveness and readiness. It can be done easily by adding the maven dependency below:
+
+```
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+```
+
 
 ## Quickstart
 **Step 1**
@@ -20,6 +34,8 @@ Create a new application using onsen. Once again, this can be done via the GUI o
 **Step 3**
 Kick off your pipeline, which has the same name as your application, either using the GUI or with the CLI command
 `oc build <Application Name>`
+**Step 4 (Optional)**
+You can get teh Webhook URL and set it in your source code manager to trigger builds when new code is pushed to the git repo.
 
 ##Setting up testing and validation
 Howevermuch we want it to, onsen can't write tests for you. There are place holders for integration tests and validation tests in your pipeline, as indicated below:
@@ -38,3 +54,6 @@ Howevermuch we want it to, onsen can't write tests for you. There are place hold
 ```
 
 Please make sure you have set up your testing properly before deploying to test.
+
+
+

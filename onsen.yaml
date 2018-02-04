@@ -89,7 +89,8 @@ objects:
                   stage("Run integration tests") {
                     //Your integration tests go here
                     sh "echo 'Please write some integration tests'"
-                    sh "curl http://${appName}-td:8080/"
+                    sh "curl --silent -X POST 'http://${appName}-td:8080/greeting' | grep World"
+                    sh "curl --silent -X POST 'http://${appName}-td:8080/greeting'  -d 'name=McGreetFace' | grep McGreetFace"
                   }
 
                   stage("Deploy to Prod") {
@@ -99,7 +100,8 @@ objects:
                   stage("Run validation tests") {
                     //Your validation tests go here
                     sh "echo 'Please write some validation tests'"
-                    sh "curl http://${appName}:8080/"
+                    sh "curl --silent -X POST 'http://${appName}-td:8080/greeting' | grep World"
+                    sh "curl --silent -X POST 'http://${appName}-td:8080/greeting'  -d 'name=McGreetFace' | grep McGreetFace"
                   }
 
                 }

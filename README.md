@@ -42,16 +42,20 @@ You can get teh Webhook URL and set it in your source code manager to trigger bu
 Howevermuch we want it to, onsen can't write tests for you. There are place holders for integration tests and validation tests in your pipeline, as indicated below:
 
 ```
-                stage("Run integration tests") {
-                  //Your integration tests go here
-                  sh "echo 'Please write some integration tests'"
-                }
+              stage("Run integration tests") {
+                //Your integration tests go here
+                sh "echo 'Please write some integration tests'"
+                sh "curl --silent -X POST 'http://${appName}-td:8080/greeting' | grep World"
+                sh "curl --silent -X POST 'http://${appName}-td:8080/greeting'  -d 'name=McGreetFace' | grep McGreetFace"
+              }
                 ...
                 ...
-                stage("Run validation tests") {
-                  //Your validation tests go here
-                  sh "echo 'Please write some validation tests'"
-                }
+              stage("Run validation tests") {
+                //Your validation tests go here
+                sh "echo 'Please write some validation tests'"
+                sh "curl --silent -X POST 'http://${appName}-td:8080/greeting' | grep World"
+                sh "curl --silent -X POST 'http://${appName}-td:8080/greeting'  -d 'name=McGreetFace' | grep McGreetFace"
+              }
 ```
 
 Please make sure you have set up your testing properly before deploying to test.

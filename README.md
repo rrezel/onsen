@@ -8,6 +8,8 @@ Onsen default pipeline
 
 Checkout code &rarr; Build Jar &rarr; Build Image &rarr; Deploy to Test &rarr; Run Integration tests &rarr; Deploy to Prod &rarr; Run Validation tests
 
+Take a look at onsen's own [live pipeline](https://jenkinsonsen.hotbed.io/blue/organizations/jenkins/onsen-greeting-sample/detail/onsen-greeting-sample/1/pipeline).
+
 ## Before you start
 
 Onsen uses /health endpoint provided by Spring Boot Actuator for both liveness and readiness. It can be done easily by adding the maven dependency below:
@@ -39,7 +41,7 @@ Kick off your pipeline, which has the same name as your application, either usin
 You can get teh Webhook URL and set it in your source code manager to trigger builds when new code is pushed to the git repo.
 
 ## Setting up testing and validation
-Howevermuch we want it to, onsen can't write tests for you. There are place holders for integration tests and validation tests in your pipeline, as indicated below:
+However much we want it to, onsen can't write tests for you. There are place holders for integration tests and validation tests in your pipeline, as indicated below:
 
 ```
               stage("Run integration tests") {
